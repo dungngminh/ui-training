@@ -1,6 +1,6 @@
-# ui_training
+# Shop for Women
 
-My Training UI
+My Day 1 Training UI
 
 ## Getting Started
 

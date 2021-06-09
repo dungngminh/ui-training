@@ -5,11 +5,11 @@ import '../../../constants.dart';
 
 class ItemCard extends StatelessWidget {
   final Product? product;
-  final void Function()? pressFn;
+  final Function() pressFn;
   const ItemCard({
     Key? key,
     this.product,
-    this.pressFn,
+    required this.pressFn,
   }) : super(key: key);
 
   @override

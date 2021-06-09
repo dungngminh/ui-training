@@ -3,6 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ui_training/constants.dart';
 import 'package:ui_training/model/Product.dart';
 
+import 'color_size.dart';
+import 'counter_fav.dart';
+import 'description.dart';
+import 'product_detail.dart';
+
 class BodyDetailScreen extends StatelessWidget {
   final Product? product;
 
@@ -19,7 +24,12 @@ class BodyDetailScreen extends StatelessWidget {
             child: Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: size.height * 0.35),
+                  margin: EdgeInsets.only(top: size.height * 0.33),
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.15,
+                    left: kDefaultPadding,
+                    right: kDefaultPadding,
+                  ),
                   height: 500,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -28,58 +38,62 @@ class BodyDetailScreen extends StatelessWidget {
                       topRight: Radius.circular(25),
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 30),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: kDefaultPadding - 5),
+                  child: Container(
+                    margin: EdgeInsets.only(left: kDefaultPadding / 2),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Aristocratic Hand Bag",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          product!.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(text: "Price\n"),
-                                  TextSpan(
-                                    text: "\$${product!.price}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline4!
-                                        .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
+                        ColorAndSize(product: product),
+                        Description(product: product),
+                        CounterWithFavButton(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: kDefaultPadding * 2),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 58,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: product!.color,
                                   ),
-                                ],
+                                ),
+                                child: IconButton(
+                                  icon: SvgPicture.asset(
+                                    "assets/icons/add_to_cart.svg",
+                                    fit: BoxFit.scaleDown,
+                                  ),
+                                  onPressed: null,
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: Image.asset(product!.image),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 50,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    primary: product!.color,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(
+                                    "Buy  Now".toUpperCase(),
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
                   ),
-                )
+                ),
+                ProductDetail(product: product)
               ],
             ),
           ),
